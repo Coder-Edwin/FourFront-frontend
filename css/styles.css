@@ -1,0 +1,348 @@
+/* ================================================================
+   styles.css - Fourfront Management Investment Club
+   ================================================================ */
+
+:root {
+  --bg-page: #f4f1eb;
+  --bg-phone: #4a4c50;
+  --bg-surface: #444444;
+  --gold: #CEA229;
+  --gold-soft: #d4b760;
+  --text-light: #f7f7f4;
+  --text-soft: #d8d9d3;
+  --text-dark: #1f2124;
+  --radius-phone: 34px;
+  --radius-card: 8px;
+  --radius-pill: 99px;
+  --edge-gap: 12px;
+  --card-gap: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #d8d8d8;
+  font-family: "DM Sans", sans-serif;
+  color: var(--text-light);
+}
+
+.phone-frame {
+  max-width: 340px;
+  margin: 20px auto;
+  border-radius: var(--radius-phone);
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28), 0 0 0 8px #c7c7c7;
+}
+
+.status-bar {
+  padding: 8px 12px 6px;
+  background: #f8f8f8;
+  color: #101114;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-hero {
+  padding: var(--edge-gap) var(--edge-gap) 0;
+  background: var(--bg-phone);
+  background-clip: content-box;
+}
+
+.hero-card {
+  border: 1px solid rgba(206, 162, 41, 0.85);
+  border-radius: var(--radius-card);
+  background: #4a4c50;
+  padding: 10px 11px 12px;
+}
+
+.hero-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.hero-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #efefef;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.1;
+  color: #f1f2ef;
+}
+
+.profile-subtitle {
+  margin: 0;
+  margin-left: 52px;
+  font-size: 12px;
+  color: #f1f2ef;
+  line-height: 1.25;
+  max-width: 190px;
+  text-align: left;
+}
+
+.members-section {
+  padding: 0 var(--edge-gap) var(--edge-gap);
+  background: var(--bg-phone);
+  background-clip: content-box;
+}
+
+.members-section .row {
+  margin: 0;
+  --bs-gutter-x: var(--card-gap);
+  --bs-gutter-y: var(--card-gap);
+}
+
+.members-section .row > * {
+  padding-right: calc(var(--card-gap) / 2);
+  padding-left: calc(var(--card-gap) / 2);
+}
+
+.member-card {
+  border-radius: var(--radius-card);
+  padding: 8px 9px 8px;
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.member-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0;
+}
+
+.member-photo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+
+.member-name {
+  margin: 0;
+  color: #273034;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.05;
+  max-width: 58px;
+}
+
+.member-score {
+  margin: 6px 0 0;
+  text-align: center;
+  color: #2a2222;
+  font-size: 37px;
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+.tone-rose {
+  background: #dcb8bc;
+}
+
+.tone-green {
+  background: #D9E9AB;
+}
+
+.tone-beige {
+  background: #EFD9B0;
+}
+
+.tone-pink {
+  background: #F6D2D4;
+}
+
+.motivation-section {
+  background: #ffffff;
+  border-top: 2px solid #ffffff;
+  padding: 0 var(--edge-gap) 6px;
+}
+
+.motivation-card {
+  background: #4a4c50;
+  border-radius: var(--radius-card);
+  padding: 10px 10px;
+}
+
+.motivation-title {
+  margin: 0 0 4px;
+  color: #cea229;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.motivation-text {
+  margin: 0;
+  color: #ffffff;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.membership-section {
+  background: #ffffff;
+  padding: 0 var(--edge-gap) 6px;
+}
+
+.membership-card {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+
+.membership-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 10px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.membership-header .label span {
+  font-weight: 500;
+}
+
+.membership-card.foundation .membership-header {
+  background: #c9a126;
+  color: #ffffff;
+}
+
+.membership-card.economy .membership-header {
+  background: #7e92ac;
+  color: #ffffff;
+}
+
+.toggle-icon {
+  font-size: 14px;
+  transition: transform 0.25s ease;
+}
+
+.membership-card.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.membership-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.membership-card.open .membership-body {
+  max-height: 190px;
+  padding: 10px;
+}
+
+.membership-card.foundation .membership-body {
+  background: #4a4c50;
+}
+
+.membership-card.economy .membership-body {
+  background: #4a4c50;
+}
+
+.membership-body p {
+  margin: 0;
+  font-size: 9px;
+  color: #f4f4f2;
+  line-height: 1.35;
+}
+
+.cta-section {
+  padding: 0 var(--edge-gap) 10px;
+  background: #ffffff;
+}
+
+.cta-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #c9a126;
+  color: #f3e5b1;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 5px 8px;
+}
+
+.app-footer {
+  background: #c9a126;
+  padding: 6px 12px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-copy {
+  color: #f6ebc5;
+  font-size: 7px;
+  text-align: center;
+  max-width: 100%;
+}
+
+.whatsapp-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #28c95e;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  position: absolute;
+  right: 6px;
+  bottom: 8px;
+}
+
+.membership-card:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  body {
+    background: var(--bg-phone);
+  }
+
+  .phone-frame {
+    margin: 0;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
