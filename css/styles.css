@@ -1,54 +1,136 @@
 /* ================================================================
-   styles.css - Fourfront Management Investment Club
+   styles.css – Fourfront Management Investment Club
+   Author  : Edwin [Your Last Name]
+   Project : Fourfront Management Frontend Assessment
+
+   Layout logic (matches the PDF + screenshot exactly):
+   ┌─────────────────────────────────────────┐
+   │  body background: #f3f5f9               │
+   │  ┌───────────────────────────────────┐  │
+   │  │  phone-frame (silver bezel)       │  │
+   │  │  ┌─────────────────────────────┐  │  │
+   │  │  │ top-block  bg: #4a4c50      │  │  │
+   │  │  │  status-bar                 │  │  │
+   │  │  │  hero card (gold border)    │  │  │
+   │  │  │  members 2×2 grid           │  │  │
+   │  │  └─────────────────────────────┘  │  │
+   │  │  ┌─────────────────────────────┐  │  │
+   │  │  │ bottom-block  bg: #f3f5f9   │  │  │
+   │  │  │  motivation card            │  │  │
+   │  │  │  foundation membership      │  │  │
+   │  │  │  economy membership         │  │  │
+   │  │  │  CTA link                   │  │  │
+   │  │  └─────────────────────────────┘  │  │
+   │  │  footer  bg: #c9a126 (gold)       │  │
+   │  └───────────────────────────────────┘  │
+   └─────────────────────────────────────────┘
+
+   Sections:
+   1.  Design Tokens
+   2.  Base / Reset
+   3.  Phone Frame
+   4.  Status Bar
+   5.  Top Block (gunmetal wrapper)
+   6.  Profile Hero
+   7.  Members Leaderboard Grid
+   8.  Bottom Block (light grey wrapper)
+   9.  Motivation Section
+   10. Membership Cards (toggle / accordion)
+   11. Call-to-Action
+   12. Footer
+   13. Responsive Breakpoints
    ================================================================ */
 
+
+/* ----------------------------------------------------------------
+   1. DESIGN TOKENS
+---------------------------------------------------------------- */
 :root {
-  --bg-page: #f4f1eb;
-  --bg-phone: #4a4c50;
-  --bg-surface: #444444;
-  --gold: #CEA229;
-  --gold-soft: #d4b760;
-  --text-light: #f7f7f4;
-  --text-soft: #d8d9d3;
-  --text-dark: #1f2124;
-  --radius-phone: 34px;
-  --radius-card: 8px;
-  --radius-pill: 99px;
-  --edge-gap: 12px;
-  --card-gap: 8px;
+  /* Background colours */
+  --bg-page:        #f3f5f9;   /* page + phone inner padding + bottom block */
+  --bg-gunmetal:    #4a4c50;   /* top block — hero + members */
+  --bg-hero-card:   #3e4044;   /* hero card surface */
+  --bg-dark-card:   #3e4044;   /* motivation card + membership bodies */
+
+  /* Brand colours */
+  --gold:           #c9a126;
+  --gold-border:    rgba(201, 161, 38, 0.85);
+  --gold-text:      #f3e5b1;
+
+  /* Text */
+  --text-light:     #f1f2ef;
+  --text-white:     #ffffff;
+  --text-dark:      #1f2124;
+
+  /* Member card pastels — taken directly from the screenshots */
+  --pastel-rose:    #dcb8bc;
+  --pastel-green:   #d9e9ab;
+  --pastel-beige:   #efd9b0;
+  --pastel-pink:    #f6d2d4;
+
+  /* Shape */
+  --radius-phone:   34px;
+  --radius-card:    8px;
+
+  /* Spacing inside the phone */
+  --phone-pad:      10px;      /* horizontal padding used throughout */
+
+  /* Animation */
+  --ease:           0.3s ease;
 }
 
+
+/* ----------------------------------------------------------------
+   2. BASE / RESET
+---------------------------------------------------------------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
-  background: #d8d8d8;
+  /* Page background IS the same colour as the phone's inner padding */
+  background: var(--bg-page);
   font-family: "DM Sans", sans-serif;
   color: var(--text-light);
 }
 
+
+/* ----------------------------------------------------------------
+   3. PHONE FRAME
+      Creates the mobile-device mockup on desktop.
+      Uses a silver border as the phone bezel.
+---------------------------------------------------------------- */
 .phone-frame {
   max-width: 340px;
-  margin: 20px auto;
+  margin: 24px auto;
   border-radius: var(--radius-phone);
   overflow: hidden;
-  background: #ffffff;
   position: relative;
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28), 0 0 0 8px #c7c7c7;
+  /* Phone interior is #f3f5f9 — shows as uniform padding around the top block */
+  background: var(--bg-page);
+  /* Silver bezel */
+  box-shadow:
+    0 0 0 8px #c7c7c7,
+    0 26px 60px rgba(0, 0, 0, 0.28);
 }
 
+
+/* ----------------------------------------------------------------
+   4. STATUS BAR
+      Light background, dark text and icons — matches screenshot.
+---------------------------------------------------------------- */
 .status-bar {
-  padding: 8px 12px 6px;
   background: #f8f8f8;
   color: #101114;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 14px 6px;
   font-size: 11px;
   font-weight: 700;
 }
@@ -57,19 +139,47 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 12px;
 }
 
+
+/* ----------------------------------------------------------------
+   5. TOP BLOCK  (gunmetal #4a4c50)
+      Wraps the status bar, hero section, and members grid
+      so they all share ONE continuous gunmetal background.
+      Padding on left/right gives the inner breathing room.
+---------------------------------------------------------------- */
+.top-block {
+  background: var(--bg-gunmetal);
+  /* Margin creates the uniform #f3f5f9 gap on LEFT, RIGHT, and TOP */
+  margin: 10px 10px 0;
+  border-radius: var(--radius-card);
+  padding: 0 var(--phone-pad) var(--phone-pad);
+}
+
+/* Status bar no longer needs to bleed — it sits inside the rounded block */
+.top-block .status-bar {
+  margin: 0 calc(-1 * var(--phone-pad));
+  margin-bottom: var(--phone-pad);
+  /* Match the top corners of the gunmetal block */
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+
+/* ----------------------------------------------------------------
+   6. PROFILE HERO
+      Gold-bordered dark card.  Avatar + name on same row.
+      Subtitle indented to sit under the name.
+---------------------------------------------------------------- */
 .profile-hero {
-  padding: var(--edge-gap) var(--edge-gap) 0;
-  background: var(--bg-phone);
-  background-clip: content-box;
+  margin-bottom: var(--phone-pad);
 }
 
 .hero-card {
-  border: 1px solid rgba(206, 162, 41, 0.85);
+  border: 1px solid var(--gold-border);
   border-radius: var(--radius-card);
-  background: #4a4c50;
-  padding: 10px 11px 12px;
+  background: var(--bg-hero-card);
+  padding: 10px 12px 12px;
 }
 
 .hero-head {
@@ -80,69 +190,72 @@ body {
 }
 
 .hero-avatar {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #efefef;
+  flex-shrink: 0;
 }
 
 .profile-name {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  font-family: "DM Sans", sans-serif;
+  color: var(--text-light);
   line-height: 1.1;
-  color: #f1f2ef;
+  font-family: "DM Sans", sans-serif;
 }
 
+/* Indented to align under the name (avatar width + gap) */
 .profile-subtitle {
   margin: 0;
-  margin-left: 52px;
-  font-size: 12px;
-  color: #f1f2ef;
-  line-height: 1.25;
-  max-width: 190px;
-  text-align: left;
+  padding-left: 56px;
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.35;
 }
 
+
+/* ----------------------------------------------------------------
+   7. MEMBERS LEADERBOARD GRID
+      Bootstrap 2×2 grid.
+      Pastel card backgrounds, small circular photo, name, big score.
+      No visual break from the hero — same gunmetal bg continues.
+---------------------------------------------------------------- */
 .members-section {
-  padding: 0 var(--edge-gap) var(--edge-gap);
-  background: var(--bg-phone);
-  background-clip: content-box;
+  /* No extra background needed — inherits top-block gunmetal */
 }
 
+/* Fine-tune Bootstrap gutters to match the design spacing */
 .members-section .row {
-  margin: 0;
-  --bs-gutter-x: var(--card-gap);
-  --bs-gutter-y: var(--card-gap);
-}
-
-.members-section .row > * {
-  padding-right: calc(var(--card-gap) / 2);
-  padding-left: calc(var(--card-gap) / 2);
+  --bs-gutter-x: 8px;
+  --bs-gutter-y: 8px;
 }
 
 .member-card {
   border-radius: var(--radius-card);
-  padding: 8px 9px 8px;
-  min-height: 84px;
+  padding: 8px 10px;
+  min-height: 82px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
+  transition: transform var(--ease);
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
 }
 
 .member-top {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 0;
 }
 
 .member-photo {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #fff;
@@ -154,189 +267,264 @@ body {
   color: #273034;
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.05;
-  max-width: 58px;
+  line-height: 1.15;
 }
 
 .member-score {
-  margin: 6px 0 0;
-  text-align: center;
+  margin: 0;
   color: #2a2222;
-  font-size: 37px;
+  font-size: 34px;
   font-weight: 700;
-  line-height: 0.95;
+  line-height: 1;
+  text-align: left;
 }
 
-.tone-rose {
-  background: #dcb8bc;
+/* Pastel colour variants — matched to the screenshots */
+.tone-rose  { background: var(--pastel-rose); }
+.tone-green { background: var(--pastel-green); }
+.tone-beige { background: var(--pastel-beige); }
+.tone-pink  { background: var(--pastel-pink); }
+
+
+/* ----------------------------------------------------------------
+   8. BOTTOM BLOCK  (#f3f5f9 light grey)
+      Wraps the motivation section, membership cards, and CTA.
+      This is the SAME colour as the page body and phone padding,
+      so the visual effect is that this content floats on the page.
+---------------------------------------------------------------- */
+.bottom-block {
+  background: var(--bg-page);
+  padding: var(--phone-pad);
 }
 
-.tone-green {
-  background: #D9E9AB;
-}
 
-.tone-beige {
-  background: #EFD9B0;
-}
-
-.tone-pink {
-  background: #F6D2D4;
-}
-
+/* ----------------------------------------------------------------
+   9. MOTIVATION SECTION
+      Dark charcoal card sitting on the light grey background.
+      Gold bold heading. Small white body copy below it.
+---------------------------------------------------------------- */
 .motivation-section {
-  background: #ffffff;
-  border-top: 2px solid #ffffff;
-  padding: 0 var(--edge-gap) 6px;
+  margin-bottom: var(--phone-pad);
 }
 
 .motivation-card {
-  background: #4a4c50;
+  background: var(--bg-dark-card);
   border-radius: var(--radius-card);
-  padding: 10px 10px;
+  padding: 10px 12px;
 }
 
 .motivation-title {
-  margin: 0 0 4px;
-  color: #cea229;
-  font-size: 15px;
+  color: var(--gold);
+  font-size: 13px;
   font-weight: 800;
+  margin-bottom: 4px;
 }
 
 .motivation-text {
-  margin: 0;
-  color: #ffffff;
+  color: var(--text-white);
   font-size: 10px;
-  line-height: 1.35;
+  line-height: 1.45;
 }
 
+
+/* ----------------------------------------------------------------
+   10. MEMBERSHIP CARDS (toggle / accordion)
+       Foundation = gold header.
+       Economy    = dark charcoal header.
+       Both start OPEN. Clicking toggles open/closed.
+       Arrow icon rotates 180° when card is open.
+---------------------------------------------------------------- */
 .membership-section {
-  background: #ffffff;
-  padding: 0 var(--edge-gap) 6px;
+  margin-bottom: var(--phone-pad);
 }
 
 .membership-card {
   border-radius: var(--radius-card);
   overflow: hidden;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   cursor: pointer;
+  transition: box-shadow var(--ease);
 }
 
+.membership-card:last-child {
+  margin-bottom: 0;
+}
+
+.membership-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* Keyboard accessibility — visible focus ring */
+.membership-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Header row shared styles */
 .membership-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 10px;
+  padding: 9px 12px;
   font-size: 10px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  user-select: none;
+}
+
+.membership-header .label strong {
+  font-weight: 800;
+  letter-spacing: 0.08em;
 }
 
 .membership-header .label span {
-  font-weight: 500;
+  font-weight: 400;
 }
 
-.membership-card.foundation .membership-header {
-  background: #c9a126;
-  color: #ffffff;
-}
-
-.membership-card.economy .membership-header {
-  background: #7e92ac;
-  color: #ffffff;
-}
-
+/* Chevron rotates when card is open */
 .toggle-icon {
-  font-size: 14px;
-  transition: transform 0.25s ease;
+  font-size: 13px;
+  transition: transform 0.3s ease;
 }
 
 .membership-card.open .toggle-icon {
   transform: rotate(180deg);
 }
 
+/* ── Foundation – gold header ── */
+.membership-card.foundation .membership-header {
+  background: var(--gold);
+  color: var(--text-white);
+}
+
+.membership-card.foundation .membership-body {
+  background: var(--bg-dark-card);
+}
+
+/* ── Economy – dark charcoal header ── */
+.membership-card.economy .membership-header {
+  background: #5a6070;
+  color: var(--text-white);
+}
+
+.membership-card.economy .membership-body {
+  background: var(--bg-dark-card);
+}
+
+/* ── Collapsible body ── */
 .membership-body {
   max-height: 0;
   overflow: hidden;
-  padding: 0 10px;
+  padding: 0 12px;
+  /* Smooth expand/collapse animation */
   transition: max-height 0.35s ease, padding 0.35s ease;
 }
 
 .membership-card.open .membership-body {
-  max-height: 190px;
-  padding: 10px;
-}
-
-.membership-card.foundation .membership-body {
-  background: #4a4c50;
-}
-
-.membership-card.economy .membership-body {
-  background: #4a4c50;
+  max-height: 160px;
+  padding: 9px 12px 11px;
 }
 
 .membership-body p {
   margin: 0;
-  font-size: 9px;
-  color: #f4f4f2;
-  line-height: 1.35;
+  font-size: 9.5px;
+  color: #e8e8e4;
+  line-height: 1.5;
 }
 
+
+/* ----------------------------------------------------------------
+   11. CALL-TO-ACTION
+       Full-width gold pill/bar with small italic text.
+       Sits inside the #f3f5f9 bottom block.
+---------------------------------------------------------------- */
 .cta-section {
-  padding: 0 var(--edge-gap) 10px;
-  background: #ffffff;
+  /* No extra padding needed — bottom-block padding handles it */
 }
 
 .cta-link {
   display: block;
   width: 100%;
   text-align: center;
-  background: #c9a126;
-  color: #f3e5b1;
-  border-radius: 3px;
+  background: var(--gold);
+  color: var(--gold-text);
+  border-radius: 4px;
   text-decoration: none;
   font-size: 9px;
-  font-weight: 700;
-  padding: 5px 8px;
+  font-style: italic;
+  font-weight: 600;
+  padding: 7px 10px;
+  letter-spacing: 0.02em;
+  transition: opacity var(--ease);
 }
 
+.cta-link:hover {
+  opacity: 0.88;
+  color: var(--gold-text);
+}
+
+
+/* ----------------------------------------------------------------
+   12. FOOTER
+       Thin gold bar spanning the full phone width.
+       Copyright text centred. WhatsApp button on the right.
+---------------------------------------------------------------- */
 .app-footer {
-  background: #c9a126;
-  padding: 6px 12px 4px;
+  background: var(--gold);
+  padding: 7px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  min-height: 30px;
 }
 
 .footer-copy {
   color: #f6ebc5;
   font-size: 7px;
   text-align: center;
-  max-width: 100%;
+  line-height: 1.3;
 }
 
+/* WhatsApp button — positioned on the right of the footer */
 .whatsapp-btn {
-  width: 24px;
-  height: 24px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #28c95e;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  position: absolute;
-  right: 6px;
-  bottom: 8px;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(40, 201, 94, 0.45);
+  transition: transform var(--ease);
 }
 
-.membership-card:focus-visible {
-  outline: 2px solid var(--gold-soft);
-  outline-offset: 2px;
+.whatsapp-btn:hover {
+  transform: translateY(-50%) scale(1.12);
+  color: #ffffff;
+}
+
+
+/* ----------------------------------------------------------------
+   13. RESPONSIVE BREAKPOINTS
+       Tablet (≤768px) → shrink frame margin
+       Mobile (≤480px) → full-screen, remove bezel
+---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .phone-frame {
+    margin: 12px auto;
+  }
 }
 
 @media (max-width: 480px) {
   body {
-    background: var(--bg-phone);
+    background: var(--bg-gunmetal);
   }
 
   .phone-frame {
